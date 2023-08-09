@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func mergeCountriesWithCities() {
+func MergeCountriesWithCities() {
 	// get data from ./data/countries.json
 	file, _ := os.ReadFile("./data/countries.json")
 	countriesData := []NewCountry{}
