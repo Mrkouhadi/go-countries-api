@@ -10,14 +10,11 @@ func MergeCountriesWithCities() {
 	file, _ := os.ReadFile("./data/countries.json")
 	countriesData := []NewCountry{}
 	_ = json.Unmarshal(file, &countriesData)
-
 	// get data from ./data/cities.json
 	NewfileCities, _ := os.ReadFile("./data/cities.json")
 	CitiesData := []CityJSON{}
 	_ = json.Unmarshal(NewfileCities, &CitiesData)
-
 	allData := []NewCountryWithCities{}
-
 	for i := 0; i < len(countriesData); i++ {
 		NewcountryWithCities := NewCountryWithCities{
 			Name:                      countriesData[i].Name,
@@ -39,7 +36,6 @@ func MergeCountriesWithCities() {
 		}
 		allData = append(allData, NewcountryWithCities)
 	}
-
 	// convert the data from a struct type to json
 	jsonfile, _ := json.MarshalIndent(allData, "", "    ")
 	// insert it to a json file
