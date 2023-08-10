@@ -18,6 +18,7 @@ func GetAllCountries(fname string) ([]models.CountryType, error) {
 	}
 	return countries, nil
 }
+
 func GetAllCities(fname string) ([]models.CityType, error) {
 	file, _ := os.ReadFile(fname)
 	countries := []models.CityType{}
@@ -35,9 +36,8 @@ func WriteJSON(w http.ResponseWriter, status int, data any) error {
 	return json.NewEncoder(w).Encode(data)
 }
 
-// enabling CORS
+// Enabling CORS
 func EnableCors(w *http.ResponseWriter) {
-	// WE CHOOSE ONLY ONE OF THESE BELOW NOT BOTH...
-	// (*w).Header().Set("Access-Control-Allow-Origin", "*") // this means open all possible origins
-	(*w).Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500") // open to only http://localhost:3000
+	(*w).Header().Set("Access-Control-Allow-Origin", "*") // * means open all possible origins
+	// (*w).Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500") // open to only http://127.0.0.1:5500
 }
