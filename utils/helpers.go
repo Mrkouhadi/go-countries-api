@@ -40,4 +40,7 @@ func WriteJSON(w http.ResponseWriter, status int, data any) error {
 func EnableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*") // * means open all possible origins
 	// (*w).Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500") // open to only http://127.0.0.1:5500
+	(*w).Header().Set("Access-Control-Allow-Credentials", "true")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 }
