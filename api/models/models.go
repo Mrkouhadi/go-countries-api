@@ -1,4 +1,4 @@
-package main
+package models
 
 type CityType struct {
 	Name       string `json:"city_name"`

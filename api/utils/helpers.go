@@ -1,15 +1,26 @@
-package main
+package utils
 
 import (
 	"encoding/json"
 	"net/http"
 	"os"
+
+	"github.com/mrkouhadi/go-countries-api/models"
 )
 
 // getAll gets data from the json files
-func getAll(fname string) ([]CountryType, error) {
+func GetAllCountries(fname string) ([]models.CountryType, error) {
 	file, _ := os.ReadFile(fname)
-	countries := []CountryType{}
+	countries := []models.CountryType{}
+	err := json.Unmarshal(file, &countries)
+	if err != nil {
+		return nil, err
+	}
+	return countries, nil
+}
+func GetAllCities(fname string) ([]models.CityType, error) {
+	file, _ := os.ReadFile(fname)
+	countries := []models.CityType{}
 	err := json.Unmarshal(file, &countries)
 	if err != nil {
 		return nil, err
@@ -25,7 +36,7 @@ func WriteJSON(w http.ResponseWriter, status int, data any) error {
 }
 
 // enabling CORS
-func enableCors(w *http.ResponseWriter) {
+func EnableCors(w *http.ResponseWriter) {
 	// WE CHOOSE ONLY ONE OF THESE BELOW NOT BOTH...
 	// (*w).Header().Set("Access-Control-Allow-Origin", "*") // this means open all possible origins
 	(*w).Header().Set("Access-Control-Allow-Origin", "http://127.0.0.1:5500") // open to only http://localhost:3000
