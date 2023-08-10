@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 )
 
 func main() {
-	fmt.Println("CONNECTED...")
+	http.HandleFunc("/countries", AllCountires)
+	http.HandleFunc("/cities", Allcities)
+
+	http.ListenAndServe(":8080", nil)
 }
