@@ -99,3 +99,4 @@ func GetCountryByCapitalCity(w http.ResponseWriter, r *http.Request) {
 	utils.EnableCors(&w)
 	utils.WriteJSON(w, http.StatusOK, requestedCountry)
 }
+
