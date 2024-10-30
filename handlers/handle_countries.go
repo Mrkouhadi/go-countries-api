@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"net"
 	"net/http"
 	"strings"
 
@@ -10,7 +11,12 @@ import (
 )
 
 func AllCountries(w http.ResponseWriter, r *http.Request) {
+	// Retrieve the user's IP address
 	userIP := r.RemoteAddr
+	ip, _, err := net.SplitHostPort(userIP)
+	if err != nil {
+		ip = userIP // Fallback to the original if there's an error
+	}
 
 	// Retrieve the country data
 	data, err := utils.GetAllCountries("./data/countries-with-svg_flags.json")
@@ -23,7 +29,7 @@ func AllCountries(w http.ResponseWriter, r *http.Request) {
 
 	// Create a new structure to hold the IP address and country data
 	response := map[string]interface{}{
-		"ip_address": userIP,
+		"ip_address": ip,
 		"data":       data,
 	}
 
