@@ -9,14 +9,26 @@ import (
 	"github.com/mrkouhadi/go-countries-api/utils"
 )
 
-func AllCountires(w http.ResponseWriter, r *http.Request) {
-	data, error := utils.GetAllCountries("./data/countries-with-svg_flags.json")
-	if error != nil {
-		utils.WriteJSON(w, http.StatusNotFound, models.ApiError{Message: error.Error()})
+func AllCountries(w http.ResponseWriter, r *http.Request) {
+	userIP := r.RemoteAddr
+
+	// Retrieve the country data
+	data, err := utils.GetAllCountries("./data/countries-with-svg_flags.json")
+	if err != nil {
+		utils.WriteJSON(w, http.StatusNotFound, models.ApiError{Message: err.Error()})
 		return
 	}
+
 	utils.EnableCors(&w)
-	utils.WriteJSON(w, http.StatusOK, data)
+
+	// Create a new structure to hold the IP address and country data
+	response := map[string]interface{}{
+		"ip_address": userIP,
+		"data":       data,
+	}
+
+	// Send the response as JSON
+	utils.WriteJSON(w, http.StatusOK, response)
 }
 
 func GetCountryByName(w http.ResponseWriter, r *http.Request) {
@@ -99,4 +111,3 @@ func GetCountryByCapitalCity(w http.ResponseWriter, r *http.Request) {
 	utils.EnableCors(&w)
 	utils.WriteJSON(w, http.StatusOK, requestedCountry)
 }
-
