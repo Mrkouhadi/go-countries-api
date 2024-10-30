@@ -22,7 +22,7 @@ func main() {
 	router.Get("/cities/by-geonameid/{name}", handlers.GetCityByGeoNameID)
 
 	//countries
-	router.Get("/countries", handlers.AllCountires)
+	router.Get("/countries", handlers.AllCountries)
 	router.Get("/countries/{name}", handlers.GetCountryByName)
 	router.Get("/countries/by-continent-code/{code}", handlers.GetCountriesByContinentCode)
 	router.Get("/countries/by-capital-city/{capital}", handlers.GetCountryByCapitalCity)
