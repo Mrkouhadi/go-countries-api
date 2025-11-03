@@ -10,13 +10,23 @@ import (
 
 // getAll gets data from the json files
 func GetAllCountries(fname string) ([]models.CountryType, error) {
-	file, _ := os.ReadFile(fname)
-	countries := []models.CountryType{}
-	err := json.Unmarshal(file, &countries)
+	file, err := os.ReadFile(fname)
 	if err != nil {
 		return nil, err
 	}
-	return countries, nil
+	countries := []models.CountryType{}
+	err = json.Unmarshal(file, &countries)
+	if err != nil {
+		return nil, err
+	}
+	// Filter out empty countries
+	var cleanCountries []models.CountryType
+	for _, country := range countries {
+		if country.Code != "" && country.Name != "" {
+			cleanCountries = append(cleanCountries, country)
+		}
+	}
+	return cleanCountries, nil
 }
 
 func GetAllCities(fname string) ([]models.CityType, error) {
